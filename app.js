@@ -63,21 +63,39 @@ app.get('/campgrounds/:id', function(req,res){
     console.log(`Requested ${req.params.id} page`);
 });
 
-// app.get('/campgrounds/:id/comments/new',function(req,res){
-//     Campground.findById(req.params.id,function(err,foundCampground){
-//         if(err)
-//         console.log(err);
-//         res.render('new',{campground:foundCampground});
-//     });
-// });
+// *************Comments*************
 
-// app.post('campgrounds/:id',function(req,res){
-//     Campground.create(req.body.comment,function(err,comment){
-//         if(err)
-//         console.log(err);
+app.get('/campgrounds/:id/comments/new',function(req,res){
+    Campground.findById(req.params.id,function(err,campground){
+        if(err)
+        console.log(err);
+        else{
+            res.render('comments/new',{campground:campground});
+        }
+    });
+});
 
-//     })
-// })
+app.post('/campgrounds/:id/comments',function(req,res){
+    Campground.findById(req.params.id,function(err,campground){
+        if(err){
+            console.log(err);
+            res.redirect('/campgrounds/'+campground._id);
+        }
+        else{
+            Comment.create(req.body.comment,function(err,comment){
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    campground.comments.push(comment);
+                    campground.save();
+                    console.log('Added new comment');
+                    res.redirect('/campgrounds/'+campground._id)
+                }
+            });
+        }
+    });
+});
 
 app.listen(3000,function(){
     console.log('YelpCamp server has started');

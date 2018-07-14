@@ -45,8 +45,8 @@ function seedDB(){
                     console.log('Added new campground '+newCampground.name);
                     Comment.create(
                         {
-                            text:'I love my jammies',
-                            author: 'Patrick'
+                            text:'This is a default comment',
+                            author: 'god_mode_on'
                         },
                         function(err,newComment){
                             if(err)
