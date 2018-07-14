@@ -6,18 +6,18 @@ var express = require('express'),
     Comment = require('./models/comments'),
     seedDB = require('./seeds');
 
-// Connecting MONGOOSE
 mongoose.connect('mongodb://localhost/yelp_camp');
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static(__dirname+'/public'));
+seedDB();
 
 app.get('/',function(req,res){
     res.render('homepage');
     console.log('Homepage requested');
 });
 
-seedDB();
 
 // Index Route to view all campground lists
 app.get('/campgrounds',function(req,res){

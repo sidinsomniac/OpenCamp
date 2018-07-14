@@ -1,20 +1,52 @@
 <% include ../partials/header %>
-<h1>
-    <%= campground.name %>
-</h1>
-<img src="<%= campground.image %>" alt="Image" style="width: 100vw;">
-<p>
-    <%= campground.description %>
-</p>
-<p>
-    <a href="/campgrounds/<%= campground._id %>/comments/new" class="btn btn-success">Add Comment</a>
-</p>
-<% campground.comments.forEach(function(comment){ %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">YelpCamp</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info-1</li>
+                <li class="list-group-item">Info-2</li>
+                <li class="list-group-item">Info-3</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail actual-image">
+                <img src="<%= campground.image %>" alt="Image" class="image-responsive">
+                <div class="caption-full">
+                    <h4 class="pull-right">
+                        9.00/night
+                    </h4>
+                    <h4>
+                        <a href="/campgrounds"><%= campground.name %></a>
+                    </h4>
+                    <p>
+                        <%= campground.description %>
+                    </p>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a href="/campgrounds/<%= campground._id %>/comments/new" class="btn btn-success">Add Comment</a>
+                </div>
+                <hr>
+                <% campground.comments.forEach(function(comment){ %>
+                        <div class="row">
+                            <div class="col-dm-12">
+                                <strong class="text-primary"><%= comment.author %></strong>
+                                <span class="pull-right">
+                                    10 days ago
+                                </span>
+                                <p>
+                                    <%= comment.text %>
+                                </p>
+                            </div>
+                        </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
     <p>
-        <strong class="text-primary"><%= comment.author %></strong>: <%= comment.text %>
+        <a href="/campgrounds">Go Back</a>
     </p>
-<% }) %>
-<p>
-    <a href="/campgrounds">Go Back</a>
-</p>
+</div>
 <% include ../partials/footer %>
