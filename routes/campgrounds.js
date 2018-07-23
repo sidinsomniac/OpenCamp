@@ -3,7 +3,7 @@ var router = express.Router();
 var Campground = require('../models/campgrounds');
 
 // Index Route to view all campground lists
-router.get('/campgrounds',function(req,res){
+router.get('/',function(req,res){
     Campground.find({},function(err,campgrounds){
         if(err){
             console.log('There was an error');
@@ -16,7 +16,7 @@ router.get('/campgrounds',function(req,res){
 });
 
 // Create Route to add new campgrounds to the database
-router.post('/campgrounds',function(req,res){
+router.post('/',function(req,res){
     Campground.create(req.body.newground, function(err,campground){
         if(err){
             console.log('There was an error');
@@ -28,13 +28,13 @@ router.post('/campgrounds',function(req,res){
 });
 
 // New Route to add new campgrounds to the form
-router.get('/campgrounds/newground',function(req,res){
+router.get('/newground',function(req,res){
     res.render('campgrounds/newground');
     console.log('New campground form requested');
 });
 
 // Show Route to show more info on a single campground
-router.get('/campgrounds/:id',function(req,res){
+router.get('/:id',function(req,res){
     Campground.findById(req.params.id).populate('comments').exec(function(err,foundCampground){
         if(err){
             console.log(err);
