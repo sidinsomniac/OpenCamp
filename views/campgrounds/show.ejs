@@ -22,6 +22,13 @@
                     <p>
                         <%= campground.description %>
                     </p>
+                    <p>
+                        <em>Created by <span class="text-primary">
+                            <% if(!campground.author.username) %>
+                            g0d_m0de_0n
+                            <%= campground.author.username %>
+                        </span></em>
+                    </p>
                 </div>
             </div>
             <div class="well">
