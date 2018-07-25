@@ -9,6 +9,7 @@ var express = require('express'),
     Campground = require('./models/campgrounds'),
     Comment = require('./models/comments'),
     User = require('./models/users'),
+    methodOverride = require('method-override'),
     seedDB = require('./seeds');
 
 var campgroundRoutes = require('./routes/campgrounds'),
@@ -22,6 +23,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname+'/public'));
 // seedDB();
+app.use(methodOverride('_method'));
 
 // Passport Configuration
 app.use(expressSession({

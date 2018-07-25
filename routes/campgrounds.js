@@ -50,6 +50,39 @@ router.get('/:id',function(req,res){
     console.log(`Requested ${req.params.id} page`);
 });
 
+router.get('/:id/edit',function(req,res){
+    Campground.findById(req.params.id,function(err,campground){
+        if(err)
+        res.redirect('/campgrounds');
+        else{
+            res.render('campgrounds/edit',{campground:campground});
+            console.log('Edit page requested');
+        }
+    });
+});
+
+router.put('/:id/edit',function(req,res){
+    Campground.findByIdAndUpdate(req.params.id,req.body.updatedCampground,function(err,updateCampground){
+        if(err)
+            res.redirect('/campgrounds');
+        else{
+            res.redirect('/campgrounds/'+req.params.id);
+            console.log('Campground Updated');
+        }
+    });
+});
+
+router.delete('/:id',function(req,res){
+    Campground.findByIdAndRemove(req.params.id,function(err){
+        if(err)
+        res.redirect('/campgrounds');
+        else{
+            res.redirect('/campgrounds');
+            console.log('Campground removed');
+        }
+    });
+});
+
 // Middleware
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
