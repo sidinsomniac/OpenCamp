@@ -24,15 +24,15 @@
                     </p>
                     <p>
                         <em>Created by <span class="text-primary">
-                            <% if(!campground.author.username) %>
-                            g0d_m0de_0n
                             <%= campground.author.username %>
                         </span></em>
                     </p>
-                    <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Edit</a>
-                    <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST" id="delete-form">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
+                    <% if(currentUser && campground.author.id.equals(currentUser._id)){ %>
+                        <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning">Edit</a>
+                        <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST" id="delete-form">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    <% } %>
                 </div>
             </div>
             <div class="well">
