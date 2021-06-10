@@ -1,32 +1,25 @@
-<% include ../partials/header.ejs %>
-<div class="container">
-    <header class="jumbotron">
-        <div class="container">
-            <h1>Welcome to YelpCamp</h1>
-            <p>This is where the world meets camps</p>
-            <p>
-                <a class='btn btn-primary btn-lg' href="/campgrounds/newground">Add a new Campground</a>
-            </p>
+<% layout('layouts/boilerplate')%>
+
+<h1>All Campgrounds</h1>
+<div>
+    <a href="/campgrounds/new">Add Campground</a>
+</div>
+<% for (let campground of campgrounds){%>
+<div class="card" mb-3>
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-fluid" alt="" src="<%=campground.images[0].url%>">
         </div>
-    </header>
-    <div class="row text-center" style="display: flex;flex-wrap: wrap">
-        <% campgrounds.forEach(function(x){ %>
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="<%= x.image %>">
-                    <div class="caption">
-                        <h4>
-                            <%= x.name %>
-                        </h4>
-                    </div>
-                    <p>
-                        <a href="/campgrounds/<%= x._id %>" class="btn btn-primary">
-                            More Info
-                        </a>
-                    </p>
-                </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%= campground.title %> </h5>
+                <p class="card-text"><%= campground.description %></p>
+                <p class="card-text">
+                    <small class="text-muted"><%= campground.location%></small>
+                </p>
+                <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View <%=campground.title%></a>
             </div>
-        <% }); %>
+        </div>
     </div>
 </div>
-<% include ../partials/footer.ejs %>
+<% }%>
