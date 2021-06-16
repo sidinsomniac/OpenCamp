@@ -28,7 +28,7 @@ const randomize = (sampleLength) => {
 
 const seedDB = async () => {
     await Campground.deleteMany({});
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         const price = Math.floor(Math.random() * 20) + 10;
         const campgroundCity = cities[randomize(406)];
         const author = authors[randomize(3)];
