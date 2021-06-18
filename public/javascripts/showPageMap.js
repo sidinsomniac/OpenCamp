@@ -1,5 +1,7 @@
 mapboxgl.accessToken = mapToken;
 
+map.addControl(new mapboxgl.NavigationControl());
+
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10', // stylesheet location
