@@ -9,9 +9,6 @@ const map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', function () {
-    console.log({
-        campgrounds
-    });
     map.addSource('campgrounds', {
         type: 'geojson',
         data: campgrounds,
