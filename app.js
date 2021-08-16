@@ -8,6 +8,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
+const MongoDBStore = require("connect-mongo")(session);
 const flash = require('connect-flash');
 
 
@@ -19,6 +20,8 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
 const mongoSanitize = require('express-mongo-sanitize');
+
+
 
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
@@ -51,7 +54,19 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }));
 
+const store = new MongoDBStore({
+    url: MONGODB_URI,
+    secret: SESSION_SECRET_KEY,
+    touchAfter: 24 * 3600
+});
+
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e);
+});
+
 const sessionConfig = {
+    store,
     name: 'camp_sess',
     secret: SESSION_SECRET_KEY,
     resave: false,
